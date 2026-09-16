@@ -22,7 +22,13 @@ The cloud API is intentionally represented as a documented boundary. No claim is
 
 ## Run locally
 
+For a detailed Windows setup, installation, offline test, PWA installation, camera testing, troubleshooting, and Git workflow, see **[`docs/STARTUP_GUIDE.md`](./docs/STARTUP_GUIDE.md)**.
+
+Quick start:
+
 ```bash
+git clone https://github.com/atharv-shrivastava/ASTRA.git
+cd ASTRA
 npm install
 npm run dev
 ```
