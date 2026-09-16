@@ -2,14 +2,15 @@
 
 A.S.T.R.A. is an offline-first React + Vite Progressive Web App prototype for SIH26062: Antarctic Supply Tracking & Resource Analytics.
 
-This guide is written for a fresh Windows laptop and assumes Git and Node.js are not yet configured for the project.
+This guide is written for a fresh Windows laptop and uses **pnpm** as the project package manager.
 
 ## 1. Prerequisites
 
 Install these before cloning the project:
 
 - Git for Windows
-- Node.js LTS (includes npm)
+- Node.js LTS
+- pnpm
 - A modern Chromium-based browser such as Chrome or Edge for PWA installation and camera testing
 
 After installation, open PowerShell and verify:
@@ -17,10 +18,25 @@ After installation, open PowerShell and verify:
 ```powershell
 git --version
 node --version
-npm --version
+pnpm --version
 ```
 
-Use a current Node.js LTS release. ASTRA is a Vite/React TypeScript project, so Node.js is required for dependency installation and the local development server.
+### Install pnpm
+
+If pnpm is not already installed, the simplest Windows setup is:
+
+```powershell
+corepack enable
+corepack prepare pnpm@10 --activate
+```
+
+Then verify:
+
+```powershell
+pnpm --version
+```
+
+ASTRA declares pnpm as its package manager in `package.json`.
 
 ## 2. Clone the repository
 
@@ -46,10 +62,10 @@ The main branch should be checked out.
 From the repository root:
 
 ```powershell
-npm install
+pnpm install
 ```
 
-This installs the React/Vite toolchain plus the ASTRA runtime dependencies such as Dexie, MessagePack, html5-qrcode, Chart.js, Tailwind CSS, and the Vite PWA plugin.
+This installs the React/Vite toolchain plus ASTRA runtime dependencies such as Dexie, MessagePack, html5-qrcode, Chart.js, Tailwind CSS, and the Vite PWA plugin.
 
 After installation, verify that `node_modules` was created:
 
@@ -64,7 +80,7 @@ The command should print `True`.
 Run:
 
 ```powershell
-npm run dev
+pnpm dev
 ```
 
 Vite will print a local URL, normally similar to:
@@ -116,13 +132,13 @@ Open the HQ planning view and inspect the calculated 180-day shipment requiremen
 When the development version works, test the production build:
 
 ```powershell
-npm run build
+pnpm build
 ```
 
 Then preview the generated build locally:
 
 ```powershell
-npm run preview
+pnpm preview
 ```
 
 Vite will print another local URL. Open it in the browser.
@@ -188,6 +204,7 @@ ASTRA/
 │  └─ main.tsx
 ├─ index.html
 ├─ package.json
+├─ pnpm-workspace.yaml
 ├─ tailwind.config.js
 ├─ tsconfig.json
 ├─ vite.config.ts
@@ -198,19 +215,17 @@ ASTRA/
 
 ```powershell
 # Install/update dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm dev
 
 # Run TypeScript/Vite production build
-npm run build
+pnpm build
 
 # Preview the production build
-npm run preview
+pnpm preview
 ```
-
-If linting or tests are added later, their commands should be documented here as well.
 
 ## 13. Git workflow for contributors
 
@@ -250,13 +265,29 @@ Then open a pull request on GitHub.
 
 ## 14. Common problems
 
-### `npm` is not recognized
+### `pnpm` is not recognized
 
-Node.js is not installed correctly or the terminal has not picked up the PATH change. Install Node.js LTS, close PowerShell, open a new PowerShell window, and run `node --version` again.
+Install pnpm with Corepack:
+
+```powershell
+corepack enable
+corepack prepare pnpm@10 --activate
+```
+
+Close PowerShell, open a new PowerShell window, and run `pnpm --version` again.
 
 ### `git` is not recognized
 
 Install Git for Windows and reopen PowerShell.
+
+### Node.js version problems
+
+Use a current Node.js LTS release. Then verify:
+
+```powershell
+node --version
+pnpm --version
+```
 
 ### Port 5173 is already in use
 
@@ -272,7 +303,7 @@ Check browser camera permissions and ensure the page is served from a secure con
 
 ### PWA installation option is missing
 
-Use the production build with `npm run build` followed by `npm run preview`. Verify that the browser sees the generated web manifest and service worker. Development mode is not the right basis for judging installability.
+Use the production build with `pnpm build` followed by `pnpm preview`. Verify that the browser sees the generated web manifest and service worker. Development mode is not the right basis for judging installability.
 
 ### Data disappears
 
